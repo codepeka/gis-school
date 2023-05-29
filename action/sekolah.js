@@ -27,10 +27,23 @@ $(document).ready(function() {
     });
  
 });
- 
- 
+
  
 function tambah() {
+    $("#deskripsi").summernote({
+        height: 200,
+        toolbar: [
+            //[groupname, [button list]]
+    
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['view', ['codeview']],
+        ]
+    });
+
+    $('#deskripsi').summernote('code', '');
+
     save_method = 'add';
     $('#titleModal').text("Tambah Data Sekolah"); // tittle modal
     $('#myForm')[0].reset(); // reset form on modals
@@ -55,16 +68,21 @@ function edit(id)
             $('#nama').val(data.nama);
             $('#npsn').val(data.npsn);
             $('#alamat').val(data.alamat);
-            $('#provinsi').val(data.provinsi);
-            $('#kota').val(data.kota);
-            $('#kecamatan').val(data.kecamatan);
-            $('#kelurahan').val(data.kelurahan);
-            $('#status_pendidikan').val(data.status_pendidikan);
             $('#tipe_sekolah').val(data.tipe_sekolah);
-            $('#akreditasi').val(data.akreditasi);
-            $('#kurikulum').val(data.kurikulum);
             $('#lintang').val(data.lintang);
             $('#bujur').val(data.bujur);
+            $("#deskripsi").summernote({
+                height: 200,
+                toolbar: [
+                    //[groupname, [button list]]
+            
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['view', ['codeview']],
+                ]
+            });
+            $('#deskripsi').summernote('code', data.deskripsi);
             $('#exampleModal').modal('show'); // show bootstrap modal when complete loaded
             // pesan berhasil
             $('#titleModal').text("Edit Data User"); // Set title to Bootstrap modal title

@@ -83,7 +83,7 @@ class DaftarBlog extends CI_Controller
 
         $insert = $this->dbm->save($data);
         $this->session->set_userdata('message', true);
-        // helper_log("add", "Tambah Data User / Pengguna");
+        helper_log("add", "Tambah Data User / Pengguna");
         redirect('daftarblog');
     }
 
@@ -119,7 +119,7 @@ class DaftarBlog extends CI_Controller
 
         $this->dbm->update(array('id' => $this->input->post('idne')), $data);
         $this->session->set_userdata('message', true);
-        // helper_log("update", "Ubah Data User / Pengguna");
+        helper_log("update", "Ubah Data User / Pengguna");
         redirect('daftarblog');
     }
 
@@ -131,7 +131,7 @@ class DaftarBlog extends CI_Controller
             unlink('uploads/blog/' . $file->gambar);
         }
         $this->dbm->delete_by_id($id);
-        // helper_log("delete", "Hapus Data User / Pengguna");
+        helper_log("delete", "Hapus Data User / Pengguna");
         echo json_encode(array("status" => TRUE));
     }
 

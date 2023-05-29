@@ -35,12 +35,17 @@ class Sekolah extends CI_Controller
             $row[] = $sekolah->updated_at;
 
             //add html for action
-            // <a class="btn btn-info" href="' . site_url('sekolah/detail/') . $sekolah->id . '" ><i class="fas fa-eye"></i></a>
-            $row[] = '
-                <div align="center">
-                    <a class="btn btn-warning" href="javascript:void(0)" title="Edit" onclick="edit(' . "'" . $sekolah->id . "'" . ')"><i class="fas fa-pencil-alt"></i></a>
-                    <a class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="hapus(' . "'" . $sekolah->id . "'" . ')"><i class="fas fa-trash"></i></a>
-                </div>';
+            if ($this->session->userdata('openedThisApps')) {
+                $row[] = '<div align="center">
+                            <a class="btn btn-info" href="' . site_url('sekolah/detail/') . $sekolah->id . '" ><i class="fas fa-eye"></i></a>
+                            <a class="btn btn-warning" href="javascript:void(0)" title="Edit" onclick="edit(' . "'" . $sekolah->id . "'" . ')"><i class="fas fa-pencil-alt"></i></a>
+                            <a class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="hapus(' . "'" . $sekolah->id . "'" . ')"><i class="fas fa-trash"></i></a>
+                        </div>';
+            } else {
+                $row[] = '<div align="center">
+                            <a class="btn btn-info" href="' . site_url('sekolah/detail/') . $sekolah->id . '" ><i class="fas fa-eye"></i></a>
+                        </div>';
+            }
 
             $data[] = $row;
         }
@@ -79,21 +84,15 @@ class Sekolah extends CI_Controller
             'npsn' => $this->input->post('npsn'),
             'nama' => $this->input->post('nama'),
             'alamat' => $this->input->post('alamat'),
-            'provinsi' => $this->input->post('provinsi'),
-            'kota' => $this->input->post('kota'),
-            'kecamatan' => $this->input->post('kecamatan'),
-            'kelurahan' => $this->input->post('kelurahan'),
-            'status_pendidikan' => $this->input->post('status_pendidikan'),
             'tipe_sekolah' => $this->input->post('tipe_sekolah'),
-            'akreditasi' => $this->input->post('akreditasi'),
-            'kurikulum' => $this->input->post('kurikulum'),
+            'deskripsi' => $this->input->post('deskripsi'),
             'lintang' => $this->input->post('lintang'),
             'bujur' => $this->input->post('bujur'),
             'status' => 1,
             'created_at' => date('Y-m-d H:i:s')
         );
         $insert = $this->sm->save($data);
-        // helper_log("add", "Tambah Data Sekolah");
+        helper_log("add", "Tambah Data Sekolah");
         echo json_encode(array("status" => TRUE));
     }
 
@@ -104,26 +103,20 @@ class Sekolah extends CI_Controller
             'npsn' => $this->input->post('npsn'),
             'nama' => $this->input->post('nama'),
             'alamat' => $this->input->post('alamat'),
-            'provinsi' => $this->input->post('provinsi'),
-            'kota' => $this->input->post('kota'),
-            'kecamatan' => $this->input->post('kecamatan'),
-            'kelurahan' => $this->input->post('kecamatan'),
-            'status_pendidikan' => $this->input->post('status_pendidikan'),
             'tipe_sekolah' => $this->input->post('tipe_sekolah'),
-            'akreditasi' => $this->input->post('akreditasi'),
-            'kurikulum' => $this->input->post('kurikulum'),
+            'deskripsi' => $this->input->post('deskripsi'),
             'lintang' => $this->input->post('lintang'),
             'bujur' => $this->input->post('bujur'),
         );
         $this->sm->update(array('id' => $this->input->post('idne')), $data);
-        // helper_log("update", "Ubah Data Sekolah");
+        helper_log("update", "Ubah Data Sekolah");
         echo json_encode(array("status" => TRUE));
     }
 
     public function ajax_delete($id)
     {
         $this->sm->delete_by_id($id);
-        // helper_log("delete", "Hapus Data Sekolah");
+        helper_log("delete", "Hapus Data Sekolah");
         echo json_encode(array("status" => TRUE));
     }
 
@@ -142,13 +135,8 @@ class Sekolah extends CI_Controller
             strlen($this->input->post('nama')) < 6
             || strlen($this->input->post('npsn')) < 6
             || strlen($this->input->post('alamat')) < 6
-            || $this->input->post('provinsi') == ''
-            || $this->input->post('kota') == ''
-            || $this->input->post('kecamatan') == ''
-            || $this->input->post('status_pendidikan') == ''
             || $this->input->post('tipe_sekolah') == ''
-            || $this->input->post('akreditasi') == ''
-            || $this->input->post('kurikulum') == ''
+            || $this->input->post('deskripsi') == ''
             || $this->input->post('lintang') == ''
             || $this->input->post('bujur') == ''
         ) {

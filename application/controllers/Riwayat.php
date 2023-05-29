@@ -34,10 +34,10 @@ class Riwayat extends CI_Controller
             $row = array();
             $row[] = '<p class="text-center">' . $no . '</p>';
             $row[] = $r->tanggal;
-            $row[] = $r->name;
+            $row[] = $r->nama;
             $row[] = $r->username;
             $row[] = $r->tipe;
-            $row[] = $r->description;
+            $row[] = $r->deskripsi;
 
             $data[] = $row;
         }

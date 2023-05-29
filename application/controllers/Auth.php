@@ -29,13 +29,11 @@ class Auth extends CI_Controller
             $this->session->set_userdata('hak', $data->row()->hak);
             // $this->session->set_userdata('foto', $data->row()->foto);
             $this->session->set_userdata('openedThisApps', TRUE);
-            // helper_log("login", "Login GIS");
+            helper_log("login", "Login GIS");
 
-            if ($data->row()->hak != "superadmin") {
-                redirect('home');
-            } else {
-                redirect('auth');
-            }
+            // if ($data->row()->hak != "superadmin") {
+            redirect('home');
+            // }
         } else {
             $this->session->set_userdata('messageLogin', TRUE);
             redirect('auth');
@@ -65,7 +63,7 @@ class Auth extends CI_Controller
                     // 'tgl_buat' => date('Y-m-d H:i:s'),
                 );
                 $this->am->update(array('id' => $this->session->userdata('idUser')), $data);
-                // helper_log("update", "Ubah Data Profile");
+                helper_log("update", "Ubah Data Profile");
                 echo json_encode(array("status" => TRUE));
             } else {
                 echo json_encode(array("status" => "nosame"));
@@ -102,7 +100,7 @@ class Auth extends CI_Controller
     public function logout()
     {
         if ($this->session->userdata('idUser') == '') redirect('auth');
-        // helper_log("logout", "Logout GIS");
+        helper_log("logout", "Logout GIS");
 
         $this->session->set_userdata('idUser', "");
         $this->session->set_userdata('name', "");

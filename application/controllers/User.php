@@ -77,7 +77,7 @@ class User extends CI_Controller
             'created_at' => date('Y-m-d H:i:s')
         );
         $insert = $this->user->save($data);
-        // helper_log("add", "Tambah Data User / Pengguna");
+        helper_log("add", "Tambah Data User / Pengguna");
         echo json_encode(array("status" => TRUE));
     }
 
@@ -92,14 +92,14 @@ class User extends CI_Controller
             // 'status' => $this->input->post('status'),
         );
         $this->user->update(array('id' => $this->input->post('idne')), $data);
-        // helper_log("update", "Ubah Data User / Pengguna");
+        helper_log("update", "Ubah Data User / Pengguna");
         echo json_encode(array("status" => TRUE));
     }
 
     public function ajax_delete($id)
     {
         $this->user->delete_by_id($id);
-        // helper_log("delete", "Hapus Data User / Pengguna");
+        helper_log("delete", "Hapus Data User / Pengguna");
         echo json_encode(array("status" => TRUE));
     }
 

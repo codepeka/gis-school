@@ -54,13 +54,16 @@
                         <li class="nav-item"><a href="<?= site_url('blog') ?>" class="nav-link">Blog</a></li>
                     </ul>
                 </div>
-                <form class="form-inline mx-auto">
+                <form class="form-inline mx-auto" method="get" action="<?= site_url('search') ?>">
                     <ul class="navbar-nav">
                         <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i class="fas fa-search"></i></a></li>
                     </ul>
                     <div class="search-element">
-                        <input class="form-control" type="search" placeholder="Search" aria-label="Search" data-width="250">
-                        <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+                        <div class="input-group">
+                            <input class="form-control" type="text" name="latitude" id="latitude" value="<?= $this->input->get('latitude') ?>" placeholder="Lintang" data-width="200">
+                            <input class="form-control" type="text" name="longitude" id="longitude" value="<?= $this->input->get('longitude') ?>" placeholder="Bujur" data-width="200">
+                            <button class="btn" type="submit" style="margin-top: 1px; height: 44px;"><i class="fas fa-search"></i></button>
+                        </div>
                     </div>
                 </form>
                 <?php if (!$this->session->userdata('openedThisApps')) { ?>
@@ -75,7 +78,7 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <!-- <div class="dropdown-title">Logged in 5 min ago</div> -->
-                                <a href="#" class="dropdown-item has-icon">
+                                <a href="<?= site_url('auth/profile') ?>" class="dropdown-item has-icon">
                                     <i class="far fa-user"></i> Profile
                                 </a>
                                 <div class="dropdown-divider"></div>
@@ -99,11 +102,11 @@
                                 <li class="nav-item"><a href="index.html" class="nav-link">Ecommerce Dashboard</a></li>
                             </ul> -->
                         </li>
+                        <li class="nav-item <?= ($title == 'Data Sekolah') ? 'active' : ''; ?>">
+                            <a href="<?= site_url('sekolah') ?>" class="nav-link"><i class="far fa-building"></i><span>Sekolah</span></a>
+                        </li>
                         <!-- Kondisi jika sudah login -->
                         <?php if ($this->session->userdata('openedThisApps')) : ?>
-                            <li class="nav-item <?= ($title == 'Data Sekolah') ? 'active' : ''; ?>">
-                                <a href="<?= site_url('sekolah') ?>" class="nav-link"><i class="far fa-building"></i><span>Sekolah</span></a>
-                            </li>
                             <li class="nav-item dropdown <?= ($title == 'Data Pengguna Apps' || $title == 'Data Riwayat') ? 'active' : ''; ?>">
                                 <a href="#" data-toggle="dropdown" class="nav-link has-dropdown"><i class="far fa-clone"></i><span>Menu Lain</span></a>
                                 <ul class="dropdown-menu">
